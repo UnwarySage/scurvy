@@ -23,7 +23,7 @@ jobs:
         run: sudo apt install nodejs -y & nodejs -v & sudo apt install npm & npm -v
     # Build the app    
       - name: Build Scurvy
-        run: shadow-cljs release app
+        run: npx shadow-cljs release app
     # Copy index.html where it needs to go
       - name: Setup index.html
         run: cp resources/public/index.html public/assets/app/index.html
