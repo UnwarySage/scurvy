@@ -335,5 +335,6 @@
    (build-item "Bow" 2 :damage "1d6" :hands 2 :quality 3 :ammo true)
    (build-item "Crossbow" 3 :damage "1d8" :hands 2 :ammo true)])
 
-(defn- copy-parse [inp-string]
+#_:clj-kondo/ignore
+(defn- copy-parse "Used to bulk import at the REPL" [inp-string]
   (map str/trim (str/split inp-string #"[ \d+ |\n] ")))
