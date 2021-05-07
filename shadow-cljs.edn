@@ -1,0 +1,18 @@
+;; shadow-cljs configuration
+{:source-paths
+ ["src"
+  "test"]
+
+ :dependencies
+ [[com.bhauman/figwheel-main "0.2.13"]
+  [reagent/reagent "0.10.0"]
+  [cljx-sampling/cljx-sampling "0.1.0"]]
+
+ :builds
+ {:app 
+  {:target :browser
+   :modules {:app {:entries [scurvy.page]}}
+   :output-dir "public/assets/app/js"
+   :asset-path "/assets/app/js"
+   :compiler-options
+   {:optimizations :advanced}}}}

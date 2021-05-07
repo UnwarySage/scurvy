@@ -1,5 +1,7 @@
 out/
+public/
 target/
+.shadow-cljs/
 .calva/
 .lsp
 .cpcache
