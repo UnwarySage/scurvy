@@ -1,0 +1,35 @@
+name: publish
+
+on:
+  push:
+    branches:
+    - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # checks out a copy of the repository on the runners machine
+      - name: Checkout repository
+        uses: actions/checkout@master
+    # Install Java
+      - name: Prepare Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+    # Setup NPM
+      - name: Setup NPM
+        run: sudo apt install nodejs -y & nodejs -v & sudo apt install npm & npm -v
+    # Build the app    
+      - name: Build Scurvy
+        run: shadow-cljs release app
+    # Copy index.html where it needs to go
+      - name: Setup index.html
+        run: cp resources/public/index.html public/assets/app/index.html
+    # Deploy to GH-pages
+      - name: Deploy Scurvy
+        uses: peaceiris/actions-gh-pages@v3
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public/assets/app
