@@ -21,7 +21,7 @@ jobs:
     # Setup NPM
       - name: Setup NPM
         run: sudo apt install nodejs -y & nodejs -v & sudo apt install npm & npm -v
-    # Setup cache
+    # Setup node cache
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -40,6 +40,20 @@ jobs:
     # Build the app    
       - name: Build Scurvy
         run: npx shadow-cljs release app
+
+    # cache Clojure(java) dependencies
+      - name: Cache Java modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-java-modules
+        with:
+          # npm cache files are stored in `~/.m2` on Linux/macOS
+          path: ~/.m2
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
     # Copy index.html where it needs to go
       - name: Setup index.html
         run: cp resources/public/index.html public/assets/app/index.html
